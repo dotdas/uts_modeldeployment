@@ -4,8 +4,8 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-clf_model = joblib.load('best_model_clf.pkl')
-reg_model = joblib.load('best_model_reg.pkl')
+clf_model = joblib.load('artifacts/best_model_clf.pkl')
+reg_model = joblib.load('artifacts/best_model_reg.pkl')
 
 def main():
     st.set_page_config(page_title="Student Placement Predictor", layout="wide")
@@ -52,7 +52,7 @@ def main():
 
     if submitted:
         data = {
-            'gender': 1 if gender == "Male" else 0,
+            'gender': gender,
             'ssc_percentage': int(ssc_percentage),
             'hsc_percentage': int(hsc_percentage),
             'degree_percentage': int(degree_percentage),
@@ -66,7 +66,7 @@ def main():
             'certifications': int(certifications),
             'attendance_percentage': int(attendance_percentage),
             'backlogs': int(backlogs),
-            'extracurricular_activities': 1 if extracurricular_activities == "Yes" else 0,
+            'extracurricular_activities': extracurricular_activities,
         }
 
         df = pd.DataFrame([list(data.values())], columns=list(data.keys()))
@@ -85,8 +85,9 @@ def main():
                 st.success(f"Estimated Salary: {salary_pred:.2f} LPA")
             else:
                 st.error("Placement Prediction: Not Placed")
+                st.info("Estimated Salary: 0.00 LPA")
 
-            st.metric("Probability Placed",     f"{placement_prob[1]*100:.1f}%")
+            st.metric("Probability Placed", f"{placement_prob[1]*100:.1f}%")
             st.metric("Probability Not Placed", f"{placement_prob[0]*100:.1f}%")
 
         with col2:

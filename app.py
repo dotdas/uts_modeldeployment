@@ -4,8 +4,8 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-clf_model = joblib.load('artifacts/best_model_clf.pkl')
-reg_model = joblib.load('artifacts/best_model_reg.pkl')
+clf_model = joblib.load('best_model_clf.pkl')
+reg_model = joblib.load('best_model_reg.pkl')
 
 def main():
     st.set_page_config(page_title="Student Placement Predictor", layout="wide")
